@@ -14,7 +14,7 @@ app.use(express.json())
 
 // Database Connection
 // const uri = "mongodb://localhost:27017"
-const uri = "mongodb+srv://commonDb:common2212@cluster0.dkggbgt.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dkggbgt.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
