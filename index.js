@@ -46,6 +46,15 @@ async function run() {
         res.send({result, token})
     })
 
+    //Get a single user by email
+    app.get('/user/:email', async (req, res) =>{
+      const email = req.params.email;
+      const query ={ email: email}
+      const user = await userCollection.findOne(query)
+      console.log(user.role)
+      res.send(user)
+    })
+
 
     //get all bookings for admin
     // app.get('/bookings', async(req, res)=>{
@@ -67,7 +76,6 @@ async function run() {
         }
       }
       const booking = await bookingsCollection.find(query).toArray()
-      console.log(booking);
       res.send(booking)
       
     })
