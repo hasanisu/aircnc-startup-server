@@ -38,12 +38,17 @@ async function run() {
         }
         const result = await userCollection.updateOne(filter, docUpdate, options)
         
-        console.log(result)
         const token = jwt.sign(user, process.env.ACCESS_TOKEN, {
             expiresIn:'1d'
         })
-        console.log('token',token);
         res.send({result, token})
+    })
+
+    //Get all users for admin
+    app.get('/users', async (req, res) =>{
+      const query = {};
+      const users = await userCollection.find(query).toArray()
+      res.send(users)
     })
 
     //Get a single user by email
@@ -81,12 +86,19 @@ async function run() {
     })
 
 
-
-
     //Save Bookings
     app.post('/bookings', async(req, res)=>{
       const bookingData = req.body;
       const result = await bookingsCollection.insertOne(bookingData);
+      console.log(result)
+      res.send(result)
+
+    })
+
+    //Save Homes
+    app.post('/homes', async(req, res)=>{
+      const homeData = req.body;
+      const result = await homesCollection.insertOne(homeData);
       console.log(result)
       res.send(result)
 
