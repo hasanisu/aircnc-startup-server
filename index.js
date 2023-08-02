@@ -95,6 +95,24 @@ async function run() {
 
     })
 
+
+    //get Home
+    app.get('/homes', async(req, res) =>{
+      const query = {}
+      const homes = await homesCollection.find(query).toArray()
+      console.log(homes)
+      res.send(homes)
+    })
+
+    //get Single home
+    app.get('/homes/:id', async(req, res) =>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const home = await homesCollection.findOne(query)
+      console.log(home)
+      res.send(home)
+    })
+
     //Save Homes
     app.post('/homes', async(req, res)=>{
       const homeData = req.body;
